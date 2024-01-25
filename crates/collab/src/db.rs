@@ -570,18 +570,16 @@ pub struct Channel {
     pub id: ChannelId,
     pub name: String,
     pub visibility: ChannelVisibility,
-    pub role: ChannelRole,
     /// parent_path is the channel ids from the root to this one (not including this one)
     pub parent_path: Vec<ChannelId>,
 }
 
 impl Channel {
-    fn from_model(value: channel::Model, role: ChannelRole) -> Self {
+    fn from_model(value: channel::Model) -> Self {
         Channel {
             id: value.id,
             visibility: value.visibility,
             name: value.clone().name,
-            role,
             parent_path: value.ancestors().collect(),
         }
     }
@@ -591,7 +589,6 @@ impl Channel {
             id: self.id.to_proto(),
             name: self.name.clone(),
             visibility: self.visibility.into(),
-            role: self.role.into(),
             parent_path: self.parent_path.iter().map(|c| c.to_proto()).collect(),
         }
     }
@@ -617,6 +614,7 @@ impl ChannelMember {
 #[derive(Debug, PartialEq)]
 pub struct ChannelsForUser {
     pub channels: Vec<Channel>,
+    pub channel_memberships: Vec<channel_member::Model>,
     pub channel_participants: HashMap<ChannelId, Vec<UserId>>,
     pub latest_buffer_versions: Vec<proto::ChannelBufferVersion>,
     pub latest_channel_messages: Vec<proto::ChannelMessageId>,

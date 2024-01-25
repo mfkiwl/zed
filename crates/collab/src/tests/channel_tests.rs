@@ -48,13 +48,11 @@ async fn test_core_channels(
                 id: channel_a_id,
                 name: "channel-a".into(),
                 depth: 0,
-                role: ChannelRole::Admin,
             },
             ExpectedChannel {
                 id: channel_b_id,
                 name: "channel-b".into(),
                 depth: 1,
-                role: ChannelRole::Admin,
             },
         ],
     );
@@ -94,7 +92,6 @@ async fn test_core_channels(
             id: channel_a_id,
             name: "channel-a".into(),
             depth: 0,
-            role: ChannelRole::Member,
         }],
     );
 
@@ -141,13 +138,11 @@ async fn test_core_channels(
             ExpectedChannel {
                 id: channel_a_id,
                 name: "channel-a".into(),
-                role: ChannelRole::Member,
                 depth: 0,
             },
             ExpectedChannel {
                 id: channel_b_id,
                 name: "channel-b".into(),
-                role: ChannelRole::Member,
                 depth: 1,
             },
         ],
@@ -169,19 +164,16 @@ async fn test_core_channels(
             ExpectedChannel {
                 id: channel_a_id,
                 name: "channel-a".into(),
-                role: ChannelRole::Member,
                 depth: 0,
             },
             ExpectedChannel {
                 id: channel_b_id,
                 name: "channel-b".into(),
-                role: ChannelRole::Member,
                 depth: 1,
             },
             ExpectedChannel {
                 id: channel_c_id,
                 name: "channel-c".into(),
-                role: ChannelRole::Member,
                 depth: 2,
             },
         ],
@@ -213,19 +205,16 @@ async fn test_core_channels(
                 id: channel_a_id,
                 name: "channel-a".into(),
                 depth: 0,
-                role: ChannelRole::Admin,
             },
             ExpectedChannel {
                 id: channel_b_id,
                 name: "channel-b".into(),
                 depth: 1,
-                role: ChannelRole::Admin,
             },
             ExpectedChannel {
                 id: channel_c_id,
                 name: "channel-c".into(),
                 depth: 2,
-                role: ChannelRole::Admin,
             },
         ],
     );
@@ -247,7 +236,6 @@ async fn test_core_channels(
             id: channel_a_id,
             name: "channel-a".into(),
             depth: 0,
-            role: ChannelRole::Admin,
         }],
     );
     assert_channels(
@@ -257,7 +245,6 @@ async fn test_core_channels(
             id: channel_a_id,
             name: "channel-a".into(),
             depth: 0,
-            role: ChannelRole::Admin,
         }],
     );
 
@@ -280,7 +267,6 @@ async fn test_core_channels(
             id: channel_a_id,
             name: "channel-a".into(),
             depth: 0,
-            role: ChannelRole::Admin,
         }],
     );
 
@@ -311,7 +297,6 @@ async fn test_core_channels(
             id: channel_a_id,
             name: "channel-a-renamed".into(),
             depth: 0,
-            role: ChannelRole::Admin,
         }],
     );
 }
@@ -420,7 +405,6 @@ async fn test_channel_room(
             id: zed_id,
             name: "zed".into(),
             depth: 0,
-            role: ChannelRole::Member,
         }],
     );
     cx_b.read(|cx| {
@@ -681,7 +665,6 @@ async fn test_permissions_update_while_invited(
             depth: 0,
             id: rust_id,
             name: "rust".into(),
-            role: ChannelRole::Member,
         }],
     );
     assert_channels(client_b.channel_store(), cx_b, &[]);
@@ -709,7 +692,6 @@ async fn test_permissions_update_while_invited(
             depth: 0,
             id: rust_id,
             name: "rust".into(),
-            role: ChannelRole::Member,
         }],
     );
     assert_channels(client_b.channel_store(), cx_b, &[]);
@@ -748,7 +730,6 @@ async fn test_channel_rename(
             depth: 0,
             id: rust_id,
             name: "rust-archive".into(),
-            role: ChannelRole::Admin,
         }],
     );
 
@@ -760,7 +741,6 @@ async fn test_channel_rename(
             depth: 0,
             id: rust_id,
             name: "rust-archive".into(),
-            role: ChannelRole::Member,
         }],
     );
 }
@@ -889,7 +869,6 @@ async fn test_lost_channel_creation(
             depth: 0,
             id: channel_id,
             name: "x".into(),
-            role: ChannelRole::Member,
         }],
     );
 
@@ -913,13 +892,11 @@ async fn test_lost_channel_creation(
                 depth: 0,
                 id: channel_id,
                 name: "x".into(),
-                role: ChannelRole::Admin,
             },
             ExpectedChannel {
                 depth: 1,
                 id: subchannel_id,
                 name: "subchannel".into(),
-                role: ChannelRole::Admin,
             },
         ],
     );
@@ -944,13 +921,11 @@ async fn test_lost_channel_creation(
                 depth: 0,
                 id: channel_id,
                 name: "x".into(),
-                role: ChannelRole::Member,
             },
             ExpectedChannel {
                 depth: 1,
                 id: subchannel_id,
                 name: "subchannel".into(),
-                role: ChannelRole::Member,
             },
         ],
     );
@@ -1222,13 +1197,11 @@ async fn test_channel_membership_notifications(
                 depth: 0,
                 id: zed_channel,
                 name: "zed".into(),
-                role: ChannelRole::Guest,
             },
             ExpectedChannel {
                 depth: 1,
                 id: vim_channel,
                 name: "vim".into(),
-                role: ChannelRole::Member,
             },
         ],
     );
@@ -1251,13 +1224,11 @@ async fn test_channel_membership_notifications(
                 depth: 0,
                 id: zed_channel,
                 name: "zed".into(),
-                role: ChannelRole::Guest,
             },
             ExpectedChannel {
                 depth: 1,
                 id: vim_channel,
                 name: "vim".into(),
-                role: ChannelRole::Guest,
             },
         ],
     )
@@ -1476,7 +1447,6 @@ struct ExpectedChannel {
     depth: usize,
     id: ChannelId,
     name: SharedString,
-    role: ChannelRole,
 }
 
 #[track_caller]
@@ -1494,7 +1464,6 @@ fn assert_channel_invitations(
                     depth: 0,
                     name: channel.name.clone(),
                     id: channel.id,
-                    role: channel.role,
                 })
                 .collect::<Vec<_>>()
         })
@@ -1516,7 +1485,6 @@ fn assert_channels(
                     depth,
                     name: channel.name.clone().into(),
                     id: channel.id,
-                    role: channel.role,
                 })
                 .collect::<Vec<_>>()
         })

@@ -62,23 +62,13 @@ async fn test_channels(db: &Arc<Database>) {
     assert_eq!(
         result.channels,
         channel_tree(&[
-            (zed_id, &[], "zed", ChannelRole::Admin),
-            (crdb_id, &[zed_id], "crdb", ChannelRole::Admin),
-            (
-                livestreaming_id,
-                &[zed_id],
-                "livestreaming",
-                ChannelRole::Admin
-            ),
-            (replace_id, &[zed_id], "replace", ChannelRole::Admin),
-            (rust_id, &[], "rust", ChannelRole::Admin),
-            (cargo_id, &[rust_id], "cargo", ChannelRole::Admin),
-            (
-                cargo_ra_id,
-                &[rust_id, cargo_id],
-                "cargo-ra",
-                ChannelRole::Admin
-            )
+            (zed_id, &[], "zed"),
+            (crdb_id, &[zed_id], "crdb"),
+            (livestreaming_id, &[zed_id], "livestreaming",),
+            (replace_id, &[zed_id], "replace"),
+            (rust_id, &[], "rust"),
+            (cargo_id, &[rust_id], "cargo"),
+            (cargo_ra_id, &[rust_id, cargo_id], "cargo-ra",)
         ],)
     );
 
@@ -86,15 +76,10 @@ async fn test_channels(db: &Arc<Database>) {
     assert_eq!(
         result.channels,
         channel_tree(&[
-            (zed_id, &[], "zed", ChannelRole::Member),
-            (crdb_id, &[zed_id], "crdb", ChannelRole::Member),
-            (
-                livestreaming_id,
-                &[zed_id],
-                "livestreaming",
-                ChannelRole::Member
-            ),
-            (replace_id, &[zed_id], "replace", ChannelRole::Member)
+            (zed_id, &[], "zed"),
+            (crdb_id, &[zed_id], "crdb"),
+            (livestreaming_id, &[zed_id], "livestreaming",),
+            (replace_id, &[zed_id], "replace")
         ],)
     );
 
@@ -112,15 +97,10 @@ async fn test_channels(db: &Arc<Database>) {
     assert_eq!(
         result.channels,
         channel_tree(&[
-            (zed_id, &[], "zed", ChannelRole::Admin),
-            (crdb_id, &[zed_id], "crdb", ChannelRole::Admin),
-            (
-                livestreaming_id,
-                &[zed_id],
-                "livestreaming",
-                ChannelRole::Admin
-            ),
-            (replace_id, &[zed_id], "replace", ChannelRole::Admin)
+            (zed_id, &[], "zed"),
+            (crdb_id, &[zed_id], "crdb"),
+            (livestreaming_id, &[zed_id], "livestreaming",),
+            (replace_id, &[zed_id], "replace")
         ],)
     );
 
