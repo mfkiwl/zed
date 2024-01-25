@@ -40,6 +40,7 @@ use util::truncate_and_trailoff;
 use std::{
     cmp::{self, min},
     collections::{HashMap, VecDeque},
+    env,
     fmt::Display,
     ops::{Deref, Index, RangeInclusive},
     os::unix::prelude::AsRawFd,
@@ -310,6 +311,10 @@ impl TerminalBuilder {
         };
 
         setup_env();
+
+        for (key, value) in env.iter() {
+            env::set_var(key, value);
+        }
 
         //Spawn a task so the Alacritty EventLoop can communicate with us in a view context
         //TODO: Remove with a bounded sender which can be dispatched on &self
